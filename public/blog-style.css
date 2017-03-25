@@ -1,0 +1,112 @@
+html { 
+  background: url(rembrandt_portrait.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+body{
+	margin:0;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 500;
+	color: white;
+}
+
+
+.intro{
+	position: relative;
+}
+.number{
+	position:relative;
+	font-size: 21vh;
+	font-weight: 900;
+	width:100px;
+	margin: auto auto auto 0;
+}
+
+#nono{
+	text-align: left;
+	width:70vw;
+	height:50vh;
+	margin: 100px auto;
+}
+
+#menu_button{
+	z-index: 100;
+	width:125px;
+	height:18px;
+	padding: 5px 12px;
+	font-size: 13px;
+	line-height: 18px;
+	background: black;
+	position: fixed;
+	left: 25px;
+	top: 20px;
+}
+
+a{
+	text-decoration: none;
+	color: white;
+}
+
+#menu_button:hover{
+	cursor: pointer;
+}
+
+.credits{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	background-color: black;
+	width:100vw;
+	padding:13px;
+	color:white;
+	opacity: 0.7;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+#blogPost{
+	background: rgba(255,255,255,0.8);
+	position:relative;
+	width:45vw;
+	margin: 10vh auto;
+	padding:25px;
+	font-size: 1.1em;
+	color:black;
+	text-align: justify;
+
+}
+
+/*LINK OF THE PAGE: http://kalden.home.xs4all.nl/verm/images/rembrandt-wtenbogaerd-det.jpg*/
+
+@media only screen and (max-device-width: 900px){
+	#blogPost{
+		font-size: 1.2em;
+		margin: 10vh auto;
+		width: 70vw;
+	}
+}
+
+@media only screen and (max-device-width: 600px){
+
+	#blogPost{
+		width: 86vw;
+		margin: 7vh auto;
+	}
+	
+	#menu_button {
+	    text-align: center;
+	    width: 36vw;
+	    height: 3vh;
+	    padding: 14px 0px;
+	    font-size: 2.2em;
+	    line-height: 1.5em;
+	    left: 4vw;
+	    top: 20px;
+	}
+
+}

@@ -1,0 +1,73 @@
+@media only screen and (max-device-width: 500px) {
+
+	input{
+		font-size: 3.5em;
+    	width: 78vw;
+	}
+
+	#title{
+		font-size: 9em;
+	}
+
+	#blogPost {
+	    position: absolute;
+	    top: 92vh;
+	    /* bottom: 5px; */
+	    right: 0;
+	    /* border-radius: 0px; */
+	    /* background: transparent; */
+	    color: black;
+	    /* border: solid 2px; */
+	    /* visibility: hidden; */
+	    text-decoration: none;
+	    border: none;
+	    background-color: rgba(0,0,0,0.1);
+	    width: 100vw;
+	    padding: -5vh;
+	    font-size: 2.5em;
+	    height: 8vh;
+	    background:rgba(255,255,255,0.8);
+	}
+
+	.searchBar-after {
+	    position: absolute;
+	    top: 8vh;
+	    margin: 0;
+	    width: 100vw;
+	    /* right: 0; */
+	}
+
+
+
+	#instructions{
+		font-size: 2.5em;
+	}
+
+	button {
+	    font-size: 2em;
+	    background-color: rgba(0,0,0, 0.9);
+	    /* border-color: rgba(0,0,0, 0.9); */
+	    font-family: 'Lato', sans-serif;
+	    color: white;
+	    padding: 15px;
+	    border: none;
+	}
+
+	.no-margin{
+		margin:0;
+	}
+
+	.title-after{
+		font-size: 6em;
+	}
+
+	.theButton-after{
+    width: 20vw;
+    line-height: 37px;
+    margin: 0px;
+    padding: 25px 23px;
+    position: absolute;
+	}
+
+
+}

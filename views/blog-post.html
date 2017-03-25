@@ -1,0 +1,38 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8"/>
+      <!-- <meta name="viewport" content="width=device-width"> -->
+      <title>Standard Page</title> 
+      <link rel="stylesheet" type="text/css" href="style.css" />
+      <link href='http://fonts.googleapis.com/css?family=Raleway:900, 700, 500, 300' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+      <!-- CONTENT GOES HERE -->
+      <div id="menu_button">
+          <a href="../">BACK TO RIJKS MIX
+          </a>
+      </div>
+      <div id="blogPost">
+        <p>Visiting a classical art museum normally amounts to silent appraisal of exhibited art pieces. Silence indeed eliminates environmental distraction and allows the visitor to contemplate art, yet I would sometimes wish a classical art exhibition would not only stimulate my vision (and thought), but other senses as well. For my first Mashups project, I decided to create a multi sense art experience myself. Specifically, I used Rijskmuseum’s and Soundcloud’s API to juxtapose images of paintings and sound. </p>
+        <h3> API'S</h3>
+        <p>Rijksmuseum is a museum in Amsterdam dedicated to Dutch Art and history. The museum boasts a user-friendly API that allows developers to get information about art objects displayed in the museum. Importantly, one can also search for images of exhibited art pieces. Soundcloud is a major music distribution platform. Through its API, one can access music tracks as well as various user-related information.</p>
+        <h3> RIJKS MIX</h3>
+        <p>On the website that I created for the project, the user is supposed to type the name of his or her favorite painter into a search box. If the painter’s work is on display in Rijksmuseum, an image of the painter’s artwork appears on the screen. Simultaneously, the painter’s name is sent to Soundcloud API, which sends back a list of tracks corresponding to the search query. One of the tracks is then embedded into HTML’s audio element and played. </p>
+        <h3> OBSTACLES</h3>
+        <p>Whereas Rijskmuseum API documentation is easy to understand, the same does not hold true for Soundcloud’s documentation. The documentation focuses on Soundcloud’s SDK, which made it difficult for me to figure out how to request data via URL requests. In addition, Soundcloud API requires several forms of client and user authentication. It was only after considerable hassle that I understood how to incorporate Soundcloud’s tracks into my project. </p>
+        <h3> FUTURE PLANS</h3>
+        <p>Currently, juxtaposition of paintings and sound is the only thing taking place on the page. The project could benefit from some educational content, for instance the painter’s biography. Also, comments that Soundcloud users make about different tracks could be flashed on the screen. Furthermore, user preference algorithms could be used to track which paintings a particular user enjoys the most.</p>
+
+      </div>
+      <!--<div id="nono">
+  		  <p class="intro">There are</p>
+        <p class="number">16</p>
+        <p>paintings by Rembrandt currently on display in Rijksmuseum, Amsterdam</p>
+      </div>-->
+      <div class="credits">The URL of the background image is http://kalden.home.xs4all.nl/verm/images/rembrandt-wtenbogaerd-det.jpg
+      </div>
+      <!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+      <script src="scripts.js"></script>
+    </body>
+  </html>
