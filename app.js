@@ -68,5 +68,6 @@ app.get("*", function(req, res){
 });
 
 // Start the server
-app.listen(3000);
-console.log('Express started on port 3000');
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log('Express started on port' + port);
