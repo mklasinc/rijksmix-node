@@ -36,7 +36,7 @@ function searchSound(searchTerm){
 				break;
 			}
 			//if we cannot get any music
-        	$('#searchResults').html('<p> Are you looking for Skrillex? </p>');
+        	$('.search-results').html('<p> Are you looking for Skrillex? </p>');
         }
       };
     }
@@ -47,7 +47,7 @@ function searchSound(searchTerm){
 
 function searchRijks(searchTerm){
 	//console.log("rijks request to server!!!");
-	$('#searchResults').html("Cool, let's see what we can do for you");
+	$('.search-results').html("Cool, let's see what we can do for you");
 
 	$.ajax({
 		url: '/rijks/' + searchTerm,
@@ -60,8 +60,8 @@ function searchRijks(searchTerm){
 		success: function(data){
 			//console.log("YEESSSS");
 			//console.log(data);
-			//empty the #searchResults div
-			$('#searchResults').html(' ');
+			//empty the .search-results div
+			$('.search-results').html(' ');
 			//when data comes in, array.artObjects[0] is the object containing info about the artwork
 			console.log(data.artObjects);
 			var artObjectLength = data.artObjects.length;
@@ -71,7 +71,7 @@ function searchRijks(searchTerm){
 				var paintersList = ["Rembrandt","Vermeer","Steen","Van Gogh","Dürer","Cuyp"];
 				var randomPainter = Math.floor(Math.random() * 5);
 				var rijksNoData = "Hmm... we didn't find anything. Perhaps you meant... " + '<span style="color:rgb(5,241,255)">' + "'" + paintersList[randomPainter] + "'" + '</span>' + "? ";
-				$('#searchResults').html(rijksNoData);
+				$('.search-results').html(rijksNoData);
 				$('#audioDiv').html('');
 			}
 			else{
@@ -98,7 +98,7 @@ function searchRijks(searchTerm){
 						}
 						// what if you're unable to find an image?
 						var rijksNoImage = "Sorry, no '" + searchTerm.toUpperCase() + "' in the house. Try... " + '<span style="color:rgb(5,241,255)">' + "'" + paintersList[randomPainter] + "'" + '</span>' + ". ";
-						$('#searchResults').html(rijksNoImage);
+						$('.search-results').html(rijksNoImage);
 						$('#audioDiv').html('');
 					}
 				}
@@ -117,33 +117,26 @@ function searchRijks(searchTerm){
 
 $(document).ready(function(){
 
-	$('#theButton').click( function(){
+	$('.confirm-button').click( function(){
 	//saves the value of the input
-	var theInputValue = $('#theInput').val();
+	var theInputValue = $('.search-input').val();
 	//empty the input box
-	$('#searchResults').html(' ');
-	$('#theInput').val('');
-	$('#theInput').attr("placeholder","What other painters do you like?");
-	$('#theInput').focus();
+	$('.search-results').html(' ');
+	$('.search-input').val('');
+	$('.search-input').attr("placeholder","What other painters do you like?");
+	$('.search-input').focus();
 	$('#instructions').hide();
 
 	//css styling after first click
 	$('.title').addClass('title-after');
 	$('.searchBar').addClass('searchBar-after').children().addClass('inline-block');
-	$('#theButton').addClass('theButton-after');
+	
 	$('button').css("margin", "0");
-	$('input').css("text-align","left");
-	$('#blogPost').css({
-		"margin":"0",
-		"border":"none",
-		"background":"white"
-	});
-	$('#searchResults').css({
-	    "top": "20vw",
-	    "position": "absolute",
-	    "width": "46vw",
-	    "font-size": "3.5em"
-	});
+	$('.confirm-button').addClass('confirm-button-after');
+	$('.search-input').addClass('search-input-after');
+	$('.blog-button').addClass('blog-button-after');
+	$('.search-results').addClass('search-results-after');
+	$('.confirm-container').addClass('confirm-container-after');
 
 	//first get music from rijksmix!
 	searchRijks(theInputValue);

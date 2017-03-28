@@ -1,55 +1,76 @@
-@media only screen and (max-device-width: 500px) {
+@media only screen and (max-width: 600px){
 
-	input{
-		font-size: 3.5em;
-    	width: 78vw;
+	body{
+		overflow: hidden;
 	}
 
-	#title{
-		font-size: 9em;
+	input {
+	    font-size: 1em;
+	    width: 70vw;
+	    margin: 0px auto;
 	}
 
-	#blogPost {
+	.title {
+	    font-size: 2em;
+	    letter-spacing: -2px;
+	}
+
+	.title-after{
+		left:0;
+	}
+
+	.blog-button {
 	    position: absolute;
-	    top: 92vh;
-	    /* bottom: 5px; */
+	    top: 90vh;
+	    height: 10vh;
 	    right: 0;
-	    /* border-radius: 0px; */
-	    /* background: transparent; */
+	    margin:0;
 	    color: black;
-	    /* border: solid 2px; */
-	    /* visibility: hidden; */
 	    text-decoration: none;
 	    border: none;
 	    background-color: rgba(0,0,0,0.1);
 	    width: 100vw;
 	    padding: -5vh;
-	    font-size: 2.5em;
-	    height: 8vh;
+	    font-size: 1em;
 	    background:rgba(255,255,255,0.8);
 	}
-
+	.blog-button-after{
+		margin:0!important;
+		visibility: hidden;
+	}
 	.searchBar-after {
 	    position: absolute;
 	    top: 8vh;
 	    margin: 0;
 	    width: 100vw;
+	    left: 0;
 	    /* right: 0; */
+	    overflow: hidden;
+	}
+	.search-results{
+		font-size: 1.5em;
 	}
 
+	#audioDiv{
+		bottom:-3vh;
+	}
+	audio{
+		width: 100vw;
+		margin:0;
+	}
 
 
 	#instructions{
-		font-size: 2.5em;
+		font-size: 1em;
+		margin-top: 20px;
 	}
 
 	button {
-	    font-size: 2em;
+	    font-size: 1em;
 	    background-color: rgba(0,0,0, 0.9);
 	    /* border-color: rgba(0,0,0, 0.9); */
 	    font-family: 'Lato', sans-serif;
 	    color: white;
-	    padding: 15px;
 	    border: none;
 	}
 
@@ -58,16 +79,19 @@
 	}
 
 	.title-after{
-		font-size: 6em;
+		font-size: 2em;
 	}
 
-	.theButton-after{
-    width: 20vw;
-    line-height: 37px;
-    margin: 0px;
-    padding: 25px 23px;
+	.confirm-button-after {
+	margin:0;
+    width: 24vw;
+    font-size: 0.8em;
+    padding: 12px 0;
+    /* line-height: 37px; */
+    /* margin: 0px; */
+    /* padding: 25px 23px; */
     position: absolute;
-	}
+}
 
 
 }

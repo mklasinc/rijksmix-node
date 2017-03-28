@@ -2,27 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="data:;base64,=">
     <title>Standard Page</title> 
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lato: 700,300,100' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" type="text/css" href="rijksSearch.css" />
     <link rel="stylesheet" type="text/css" href="responsive.css" />
+    
   </head>
   <body>
     <!-- CONTENT GOES HERE -->
-    <button id="blogPost"> 
+    <button class="blog-button"> 
       <a href="/blogPost">
           ABOUT </a>
     </button>
 		<div class="title">Rijks mix</div>
     <div class="searchBar">
-      <input type="text" id="theInput" placeholder="Who's your favourite painter?" autofocus></input>
-      <button id="theButton"> CONFIRM </button>
+      <input type="text" class="search-input" placeholder="Who's your favourite painter?" autofocus></input>
+      <div class="confirm-container">
+        <button class="confirm-button"> CONFIRM </button>
+      </div>
     </div>
     <div id="instructions"> [Turn audio on] </div>
-    <div id="searchResults"></div>
+    <div class="search-results"></div>
     <div id="audioDiv"></div>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="rijksSearch.js"></script>
