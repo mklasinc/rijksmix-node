@@ -2,12 +2,10 @@
 var express = require("express");
 var logger = require('morgan');
 var Request = require('request');
-
 //Create an 'express' object
 var app = express();
 //log requests to the terminal console
 app.use(logger('dev'));
-
 //Set up the views directory
 app.set("views", __dirname + '/views');
 //Set EJS as templating language WITH html as an extension
