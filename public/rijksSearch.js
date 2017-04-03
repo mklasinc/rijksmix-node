@@ -1,3 +1,4 @@
+/*------------------------ SOUNDCLOUD API--------------------------*/
 function searchSound(searchTerm){
 	//clientID will be used later
   var myClientID = 'client_id=5f22b41ab6746f68eb906570aef0cfd9';
@@ -44,9 +45,8 @@ function searchSound(searchTerm){
 
 };
 
-
+/*------------------------ RIJKSMUSEUM API--------------------------*/
 function searchRijks(searchTerm){
-	//console.log("rijks request to server!!!");
 	$('.search-results').html("Cool, let's see what we can do for you");
 
 	$.ajax({
@@ -60,6 +60,7 @@ function searchRijks(searchTerm){
 		success: function(data){
 			//console.log("YEESSSS");
 			//console.log(data);
+
 			//empty the .search-results div
 			$('.search-results').html(' ');
 			//when data comes in, array.artObjects[0] is the object containing info about the artwork
@@ -107,6 +108,7 @@ function searchRijks(searchTerm){
 					var searchImgSrc = 'url(' + searchImgUrl + ')';
 					$('html').css("background", " " + searchImgSrc + " " + "no-repeat center center fixed");
 					$('html').css("background-size", "cover");
+					//call soundcloud
 					searchSound(searchTerm);
 				}
 			}
@@ -114,6 +116,7 @@ function searchRijks(searchTerm){
 	});
 
 };
+
 
 $(document).ready(function(){
 
@@ -130,7 +133,6 @@ $(document).ready(function(){
 	//css styling after first click
 	$('.title').addClass('title-after');
 	$('.searchBar').addClass('searchBar-after').children().addClass('inline-block');
-	
 	$('button').css("margin", "0");
 	$('.confirm-button').addClass('confirm-button-after');
 	$('.search-input').addClass('search-input-after');

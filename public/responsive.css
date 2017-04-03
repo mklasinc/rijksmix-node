@@ -68,7 +68,6 @@
 	button {
 	    font-size: 1em;
 	    background-color: rgba(0,0,0, 0.9);
-	    /* border-color: rgba(0,0,0, 0.9); */
 	    font-family: 'Lato', sans-serif;
 	    color: white;
 	    border: none;
@@ -87,9 +86,6 @@
     width: 24vw;
     font-size: 0.8em;
     padding: 12px 0;
-    /* line-height: 37px; */
-    /* margin: 0px; */
-    /* padding: 25px 23px; */
     position: absolute;
 }
 
