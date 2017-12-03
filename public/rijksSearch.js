@@ -59,15 +59,28 @@ function searchRijks(searchTerm){
 		},
 		success: function(data){
 			//console.log("YEESSSS");
-			//console.log(data);
+      $('.search-results').html(' ');
+			var image_data = JSON.parse(data);
+      if(!image_data.image_url){
+        console.log("error response");
+      }else{
+        var searchImgSrc = 'url(' + image_data.image_url + ')';
+        $('html').css("background", " " + searchImgSrc + " " + "no-repeat center center fixed");
+        $('html').css("background-size", "cover");
+        searchSound(searchTerm);
+      }
+
+      //call soundcloud
+
+      //console.log(data.artObject);
 
 			//empty the .search-results div
-			$('.search-results').html(' ');
+			//$('.search-results').html(' ');
 			//when data comes in, array.artObjects[0] is the object containing info about the artwork
-			console.log(data.artObjects);
-			var artObjectLength = data.artObjects.length;
+			//console.log(data.artObjects);
+			//var artObjectLength = data.artObjects.length;
 			// check if there is any data in the object
-			if(artObjectLength == 0){
+			/*if(artObjectLength == 0){
 				//have a list of painters prepared in case the search query doesn't yield any results
 				var paintersList = ["Rembrandt","Vermeer","Steen","Van Gogh","Dürer","Cuyp"];
 				var randomPainter = Math.floor(Math.random() * 5);
@@ -81,14 +94,16 @@ function searchRijks(searchTerm){
 				console.log(randomizePaint);
 				//check it the chosen object has an image
 				var searchHasImage = data.artObjects[randomizePaint].hasImage;
+        var searchHasImageUrl = data.artObjects[randomizePaint].showImage;
 
-				if(searchHasImage == false){
+				if(!searchHasImage || !searchHasImageUrl){
 					//console.log("The first shot was blind");
 					//search through the array until you find an image
 					for (var i = 0; i < artObjectLength; i++) {
 						var searchLoopImage = data.artObjects[i].hasImage;
+            var image_url_exists = data.artObjects[i].showImage;
 						//console.log("I don't have the image " + i);
-						if(searchLoopImage === true){
+						if(searchLoopImage && image_url_exists){
 							//console.log("I found it! It's the " + i + " iteration!");
 							var LoopImgUrl = data.artObjects[i].webImage.url;
 							var LoopImgSrc = 'url(' + LoopImgUrl + ')';
@@ -104,14 +119,15 @@ function searchRijks(searchTerm){
 					}
 				}
 				else{
-					var searchImgUrl = data.artObjects[randomizePaint].webImage.url;
+          console.log(data.artObjects[randomizePaint]);
+
 					var searchImgSrc = 'url(' + searchImgUrl + ')';
 					$('html').css("background", " " + searchImgSrc + " " + "no-repeat center center fixed");
 					$('html').css("background-size", "cover");
 					//call soundcloud
 					searchSound(searchTerm);
 				}
-			}
+			}*/
 		}
 	});
 
@@ -145,5 +161,3 @@ $(document).ready(function(){
 	});
 
 });
-
-
