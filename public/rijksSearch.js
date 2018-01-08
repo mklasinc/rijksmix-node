@@ -1,3 +1,5 @@
+var can_search = true;
+
 /*------------------------ SOUNDCLOUD API--------------------------*/
 function searchSound(searchTerm){
 	//clientID will be used later
@@ -8,12 +10,12 @@ function searchSound(searchTerm){
     type: 'GET',
     dataType: 'json',
     error: function(data){
-      //console.log("We got problems with Soundcloud.");
-      //console.log(data);
+      console.log("We got problems with Soundcloud.");
+      console.log(data);
     },
     success: function(data){
-      //console.log("Soundcloud is working just fine");
-      //console.log(data);
+      console.log("Soundcloud is working just fine");
+      console.log(data);
 
       //randomize the track
       var randomizeTrack = Math.floor(Math.random()*10);
@@ -45,119 +47,121 @@ function searchSound(searchTerm){
 
 };
 
+function randomize(length){
+  var index = Math.floor(Math.random()*length);
+  return index;
+}
+
+var dot_animation;
+
+function animate_dots(){
+  var $dots = $(".dots");
+  var dot_counter = 0;
+  dot_animation = setInterval(function(){
+    if(dot_counter < 4){
+      $dots.append('.');
+
+    }else{
+      $dots.html('');
+      dot_counter = 0;
+      //animation.clearInterval();
+    }
+    dot_counter++;
+  },500);
+}
+
 /*------------------------ RIJKSMUSEUM API--------------------------*/
 function searchRijks(searchTerm){
-	$('.search-results').html("Cool, let's see what we can do for you");
+	$('.search-results').html("Cool, let's see what we can do for you <span class=\"dots\"></span>");
+  animate_dots();
 
 	$.ajax({
 		url: '/rijks/' + searchTerm,
 		type: 'GET',
 		dataType: 'json',
 		error: function(data){
-			//console.log("We got problems.");
-			//console.log(data);
+			console.log("We got problems.");
+			console.log(data);
 		},
 		success: function(data){
-			//console.log("YEESSSS");
+      can_search = true;
+      window.clearTimeout( dot_animation );
       $('.search-results').html(' ');
 			var image_data = JSON.parse(data);
-      if(!image_data.image_url){
-        console.log("error response");
-      }else{
+      console.log(image_data.status);
+      if(image_data.status !== 400){
+        console.log("success!");
+        $('#loading_anim').hide();
         var searchImgSrc = 'url(' + image_data.image_url + ')';
         $('html').css("background", " " + searchImgSrc + " " + "no-repeat center center fixed");
         $('html').css("background-size", "cover");
-        searchSound(searchTerm);
+        //searchSound(searchTerm);
+      }else{
+        console.log("no images");
+        $('#loading_anim').hide();
+        var paintersList = ["Rembrandt","Vermeer","Steen","Van Gogh","Dürer","Cuyp","Durer","Goya","Munch"];
+        var random_index = randomize(paintersList.length);
+  			var rijksNoImage = "Sorry, no '" + searchTerm.toUpperCase() + "' in the house. Have you tried... " + '<span style="color:rgb(5,241,255)">' + "'" + paintersList[random_index] + "'" + '?</span>' + ". ";
+  			$('.search-results').html(rijksNoImage);
       }
-
-      //call soundcloud
-
-      //console.log(data.artObject);
-
-			//empty the .search-results div
-			//$('.search-results').html(' ');
-			//when data comes in, array.artObjects[0] is the object containing info about the artwork
-			//console.log(data.artObjects);
-			//var artObjectLength = data.artObjects.length;
-			// check if there is any data in the object
-			/*if(artObjectLength == 0){
-				//have a list of painters prepared in case the search query doesn't yield any results
-				var paintersList = ["Rembrandt","Vermeer","Steen","Van Gogh","Dürer","Cuyp"];
-				var randomPainter = Math.floor(Math.random() * 5);
-				var rijksNoData = "Hmm... we didn't find anything. Perhaps you meant... " + '<span style="color:rgb(5,241,255)">' + "'" + paintersList[randomPainter] + "'" + '</span>' + "? ";
-				$('.search-results').html(rijksNoData);
-				$('#audioDiv').html('');
-			}
-			else{
-				//randomize the painting choice
-				var randomizePaint = Math.floor(Math.random()*artObjectLength);
-				console.log(randomizePaint);
-				//check it the chosen object has an image
-				var searchHasImage = data.artObjects[randomizePaint].hasImage;
-        var searchHasImageUrl = data.artObjects[randomizePaint].showImage;
-
-				if(!searchHasImage || !searchHasImageUrl){
-					//console.log("The first shot was blind");
-					//search through the array until you find an image
-					for (var i = 0; i < artObjectLength; i++) {
-						var searchLoopImage = data.artObjects[i].hasImage;
-            var image_url_exists = data.artObjects[i].showImage;
-						//console.log("I don't have the image " + i);
-						if(searchLoopImage && image_url_exists){
-							//console.log("I found it! It's the " + i + " iteration!");
-							var LoopImgUrl = data.artObjects[i].webImage.url;
-							var LoopImgSrc = 'url(' + LoopImgUrl + ')';
-							$('html').css("background", " " + LoopImgSrc + " " + "no-repeat center center fixed");
-							$('html').css("background-size", "cover");
-							searchSound(searchTerm);
-							break;
-						}
-						// what if you're unable to find an image?
-						var rijksNoImage = "Sorry, no '" + searchTerm.toUpperCase() + "' in the house. Try... " + '<span style="color:rgb(5,241,255)">' + "'" + paintersList[randomPainter] + "'" + '</span>' + ". ";
-						$('.search-results').html(rijksNoImage);
-						$('#audioDiv').html('');
-					}
-				}
-				else{
-          console.log(data.artObjects[randomizePaint]);
-
-					var searchImgSrc = 'url(' + searchImgUrl + ')';
-					$('html').css("background", " " + searchImgSrc + " " + "no-repeat center center fixed");
-					$('html').css("background-size", "cover");
-					//call soundcloud
-					searchSound(searchTerm);
-				}
-			}*/
 		}
 	});
 
 };
 
+function query(){
+  //saves the value of the input
+
+  var theInputValue = $('.search-input').val();
+  console.log("the value",theInputValue,"length",theInputValue.length);
+  if(theInputValue.length === 0){
+    alert("you cannot search an empty value");
+    return false;
+  }else{
+    can_search = false;
+  }
+  //show the loading animation
+  // $('#loading_anim').show();
+
+  //empty the input box
+  $('.search-results').html(' ');
+  $('.search-input').val('');
+  $('.search-input').attr("placeholder","What other painters do you like?");
+  $('.search-input').focus();
+  $('#instructions').hide();
+
+  //css styling after first click
+  $('.title').addClass('title-after');
+  $('.searchBar').addClass('searchBar-after').children().addClass('inline-block');
+  $('button').css("margin", "0");
+  $('.confirm-button').addClass('confirm-button-after');
+  $('.search-input').addClass('search-input-after');
+  $('.blog-button').addClass('blog-button-after');
+  $('.search-results').addClass('search-results-after');
+  $('.confirm-container').addClass('confirm-container-after');
+
+  //first get music from rijksmix!
+  searchRijks(theInputValue);
+}
+
+
 
 $(document).ready(function(){
 
+  $(document).keypress(function(e) {
+    if(e.which == 13) {
+        if(can_search){
+          query();
+        }
+
+    };
+  });
+
 	$('.confirm-button').click( function(){
-	//saves the value of the input
-	var theInputValue = $('.search-input').val();
-	//empty the input box
-	$('.search-results').html(' ');
-	$('.search-input').val('');
-	$('.search-input').attr("placeholder","What other painters do you like?");
-	$('.search-input').focus();
-	$('#instructions').hide();
+    if(can_search){
+      query();
+    }
 
-	//css styling after first click
-	$('.title').addClass('title-after');
-	$('.searchBar').addClass('searchBar-after').children().addClass('inline-block');
-	$('button').css("margin", "0");
-	$('.confirm-button').addClass('confirm-button-after');
-	$('.search-input').addClass('search-input-after');
-	$('.blog-button').addClass('blog-button-after');
-	$('.search-results').addClass('search-results-after');
-	$('.confirm-container').addClass('confirm-container-after');
-
-	//first get music from rijksmix!
-	searchRijks(theInputValue);
 	});
 
 });

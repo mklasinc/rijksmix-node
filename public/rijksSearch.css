@@ -19,6 +19,10 @@ a{
 	margin:10px;
 }
 
+#loading_anim{
+	display:none;
+}
+
 div, button{
 	display: block;
 	margin: 10px auto;

@@ -29,16 +29,40 @@ function first_rijks_request(searchURL,query_response){
 	Request(searchURL, function (err, res, body) {
 		if (!err && res.statusCode == 200) {
 			//get body
+			var response_to_client = {};
+			//console.log(data.artObject.webImage.url);
+			//response_to_client.success = data.artObject.webImage.url || false;
+			var found_image = false;
+			var num_of_tries = 0;
 			var theData = JSON.parse(body);
-			var paintings = theData.artObjects;
-			var randomize = Math.floor(Math.random()*paintings.length);
-			var random_painting = paintings[randomize];
-			var	painting_num = random_painting.objectNumber;
-			//console.log(painting_num);
-			if(random_painting.hasImage){
-				console.log('we are going to make another request!');
-				second_rijks_request(painting_num,query_response);
+			var paintings = theData.artObjects.length > 0 ? theData.artObjects : undefined;
+			if(paintings){
+				//successful search
+				//find a painting that has an image
+				while(!found_image && num_of_tries < 10){
+					var randomize = Math.floor(Math.random()*paintings.length);
+					var random_painting = paintings[randomize];
+					var	painting_num = random_painting.objectNumber;
+					//console.log("we have that many paintings:",painting_num);
+					if(random_painting.hasImage){
+						console.log('we are going to make another request!');
+						found_image = true;
+						second_rijks_request(painting_num,query_response);
+					}else{
+						console.log("there is no image!");
+						num_of_tries++;
+						response_to_client.status = 400;
+					}
+				};
+			}else{
+				//unsuccessful search
+				console.log("we don't have this painting in our collection!");
+				response_to_client.status = 400;
+				query_response.json(JSON.stringify(response_to_client));
 			}
+
+
+
 			//console.log(random_painting);
 			//console.log(artObjectLength);
 			//send all the data
@@ -61,7 +85,7 @@ function second_rijks_request(obj_num, query_response){
 			var data = JSON.parse(body);
 			var response_to_client = {};
 			//console.log(data.artObject.webImage.url);
-			//response_to_client.success = data.artObject.webImage.url || false;
+			response_to_client.status = 200;
 			response_to_client.image_url = data.artObject.webImage.url;
 			console.log(response_to_client);
 
@@ -97,15 +121,19 @@ app.get("/rijks/:word", function(request, response) {
 });
 //soundcloud query
 app.get("/soundcloud/:word", function(request, response) {
-	//console.log("we got a request at soundcloud!");
+	console.log("we got a request at soundcloud!");
 	var soundcloudTerm = request.params.word;
 	var soundcloudAPI = 'https://api.soundcloud.com/search/sounds?q=';
   	var myClientID = 'client_id=5f22b41ab6746f68eb906570aef0cfd9';
   	var soundcloudSearchURL = soundcloudAPI + soundcloudTerm + '&' + myClientID;
-
+		console.log(soundcloudSearchURL);
   	Request(soundcloudSearchURL, function (err, res, body) {
+			if(err){
+				console.log(err);
+			}
 		if (!err && res.statusCode == 200) {
 			///console.log(body);
+			console.log("yuppi!");
 			var theData = JSON.parse(body);
 			response.json(theData);
 		}
@@ -121,4 +149,4 @@ app.get("*", function(req, res){
 // Start the server
 var port = process.env.PORT || 3000;
 app.listen(port);
-//console.log('Express started on port ' + port);
+console.log('Express started on port ' + port);
