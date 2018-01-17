@@ -1,7 +1,12 @@
 @media only screen and (max-width: 600px){
 
-	body{
+	html,body{
 		overflow: hidden;
+		height:100vh;
+	}
+
+	#work_info_container{
+		display: none;
 	}
 
 	input {

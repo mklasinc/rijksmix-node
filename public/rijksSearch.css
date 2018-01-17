@@ -70,9 +70,10 @@ input{
 	display:block;
 	margin: 50px auto 30px auto;
 	padding: 10px;
-  	border: none;
-  	box-shadow: none;
-  	text-align: center;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+	height: 23px;
  }
 
 input:focus{
@@ -94,7 +95,6 @@ button:hover{
 
 .confirm-button-after{
 	padding:14px;
-
 }
 
 .search-results{
@@ -118,6 +118,11 @@ button:hover{
     max-height: 65px;
     overflow: hidden;
     margin: 0;
+}
+
+input{
+	/* background: url("icons/search_icon.png") left no-repeat;
+	background-size:35px;	 */
 }
 
 .float-left {
@@ -154,7 +159,7 @@ img{
 	bottom:0;
 	left:0;
 	text-align: center;
-	height:10vh;
+	height:8vh;
 
 }
 
@@ -196,4 +201,77 @@ audio{
 	top:20vw;
 	position: absolute;
 	width:46vw;
+}
+
+#work_info_container{
+		position: fixed;
+		opacity:0;
+		left: 1vw;
+		top: 15vh;
+		max-width: 35vw;
+		padding: 10px 40px 5px 10px;
+ 		/* background: green; */
+		-webkit-transition: opacity 0.4s; /* Safari */
+		transition: opacity 0.4s;
+		font-family: 'Lato',sans-serif;
+}
+
+#info_icon{
+	max-height:30px;
+	width:auto;
+	padding: 0 15px 10px 0;
+}
+
+#info_icon:hover{
+	cursor: pointer;
+}
+
+#painting_info{
+	display: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+#painting_info > p{
+		margin: 5px 0;
+}
+
+#painting_info > .title{
+			    margin-bottom: 10px;
+    letter-spacing: inherit;
+    text-align: left;
+    font-size: 2em;
+    /* text-transform: uppercase; */
+    font-weight: bold;
+}
+
+#painting_info > .author{
+		font-size: 0.8em;
+    font-style: italic;
+}
+
+@media(max-width: 500px){
+	input{
+		height: 20px;
+	}
+
+	#work_info_container{
+		    min-width: 100vw;
+		left:0;
+		padding: 10px 10px 5px 10px;
+	}
+
+	#painting_info{
+		max-width: 90%;
+	}
+}
+
+@media(min-width: 1000px){
+	.confirm-container > button{
+		padding: 12px;
+	}
+	input{
+		font-size: 1.5em;
+		height:19px;
+	}
 }

@@ -39,15 +39,15 @@ function first_rijks_request(searchURL,query_response){
 			if(paintings){
 				//successful search
 				//find a painting that has an image
+				//console.log(paintings);
 				while(!found_image && num_of_tries < 10){
 					var randomize = Math.floor(Math.random()*paintings.length);
 					var random_painting = paintings[randomize];
 					var	painting_num = random_painting.objectNumber;
-					//console.log("we have that many paintings:",painting_num);
 					if(random_painting.hasImage){
 						console.log('we are going to make another request!');
 						found_image = true;
-						second_rijks_request(painting_num,query_response);
+						second_rijks_request(painting_num,query_response,searchURL);
 					}else{
 						console.log("there is no image!");
 						num_of_tries++;
@@ -72,7 +72,7 @@ function first_rijks_request(searchURL,query_response){
 
 }
 
-function second_rijks_request(obj_num, query_response){
+function second_rijks_request(obj_num, query_response,searchURL){
 
 	var rijksURL = 'https://www.rijksmuseum.nl/api/en/collection/' + obj_num + '?format=json&key=fpGQTuED';
 	console.log(rijksURL);
@@ -83,13 +83,33 @@ function second_rijks_request(obj_num, query_response){
 		if (!err && res.statusCode == 200) {
 			//get body
 			var data = JSON.parse(body);
-			var response_to_client = {};
-			//console.log(data.artObject.webImage.url);
-			response_to_client.status = 200;
-			response_to_client.image_url = data.artObject.webImage.url;
-			console.log(response_to_client);
+			//console.log(data);
 
-			query_response.json(JSON.stringify(response_to_client));
+			var response_to_client = {};
+			if(data.artObject.webImage === null){
+				first_rijks_request(searchURL,query_response);
+			}else{
+				response_to_client.label = {};
+				response_to_client.status = 200;
+				response_to_client.image_url = data.artObject.webImage.url;
+
+				if(data.artObject.label.title === null){
+					response_to_client.label.title = data.artObject.titles[0];
+					response_to_client.label.author = data.artObject.scLabelLine;
+				}else{
+					response_to_client.label.title = data.artObject.label.title;
+					response_to_client.label.author = data.artObject.label.makerLine;
+					// response_to_client.label.description = data.artObject.label.description;
+				}
+
+				console.log(response_to_client);
+				query_response.json(JSON.stringify(response_to_client));
+
+				//solicit art piece data
+				console.log(data);
+
+			}
+
 			// var paintings = theData.artObjects;
 			// var randomize = Math.floor(Math.random()*paintings.length);
 			// var random_painting = paintings[randomize];
