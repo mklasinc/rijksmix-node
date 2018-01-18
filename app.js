@@ -41,6 +41,12 @@ function first_rijks_request(searchURL,query_response){
 				//find a painting that has an image
 				//console.log(paintings);
 				while(!found_image && num_of_tries < 10){
+					if(num_of_tries > 7 || num_of_tries === paintings.length){
+						console.log("we don't have this painting in our collection!");
+						response_to_client.status = 400;
+						query_response.json(JSON.stringify(response_to_client));
+						break;
+					}
 					var randomize = Math.floor(Math.random()*paintings.length);
 					var random_painting = paintings[randomize];
 					var	painting_num = random_painting.objectNumber;

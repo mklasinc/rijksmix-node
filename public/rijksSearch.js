@@ -96,7 +96,7 @@ function searchRijks(searchTerm){
       window.clearTimeout( dot_animation );
       $('.search-results').html(' ');
 			var image_data = JSON.parse(data);
-      console.log(image_data);
+      console.log("image data is",image_data);
 
 
       if(image_data.status !== 400){
