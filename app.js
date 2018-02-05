@@ -24,54 +24,32 @@ app.get("/blogPost", function(request, response) {
 	response.render('blog-post');
 });
 
-function first_rijks_request(searchURL,query_response){
+function first_rijks_request(searchURL,query_response,try_number){
 	//send an HTTP request
 	Request(searchURL, function (err, res, body) {
 		if (!err && res.statusCode == 200) {
 			//get body
 			var response_to_client = {};
-			//console.log(data.artObject.webImage.url);
+			console.log(searchURL);
+			//console.log(body);
 			//response_to_client.success = data.artObject.webImage.url || false;
 			var found_image = false;
-			var num_of_tries = 0;
+			var num_of_tries = try_number || 0;
 			var theData = JSON.parse(body);
 			var paintings = theData.artObjects.length > 0 ? theData.artObjects : undefined;
-			if(paintings){
+			if(paintings && num_of_tries < 5){
 				//successful search
-				//find a painting that has an image
-				//console.log(paintings);
-				while(!found_image && num_of_tries < 10){
-					if(num_of_tries > 7 || num_of_tries === paintings.length){
-						console.log("we don't have this painting in our collection!");
-						response_to_client.status = 400;
-						query_response.json(JSON.stringify(response_to_client));
-						break;
-					}
-					var randomize = Math.floor(Math.random()*paintings.length);
-					var random_painting = paintings[randomize];
-					var	painting_num = random_painting.objectNumber;
-					if(random_painting.hasImage){
-						console.log('we are going to make another request!');
-						found_image = true;
-						second_rijks_request(painting_num,query_response,searchURL);
-					}else{
-						console.log("there is no image!");
-						num_of_tries++;
-						response_to_client.status = 400;
-					}
-				};
-			}else{
-				//unsuccessful search
-				console.log("we don't have this painting in our collection!");
-				response_to_client.status = 400;
-				query_response.json(JSON.stringify(response_to_client));
+				var randomize = Math.floor(Math.random()*paintings.length);
+				var random_painting = paintings[randomize];
+				var	painting_num = random_painting.objectNumber;
+				console.log('we are going to make another request!');
+				second_rijks_request(painting_num,query_response,searchURL);
+				}else{
+					//unsuccessful search
+					console.log("we don't have this painting in our collection!");
+					response_to_client.status = 400;
+					query_response.json(JSON.stringify(response_to_client));
 			}
-
-
-
-			//console.log(random_painting);
-			//console.log(artObjectLength);
-			//send all the data
 
 		}
 	});
@@ -89,7 +67,7 @@ function second_rijks_request(obj_num, query_response,searchURL){
 		if (!err && res.statusCode == 200) {
 			//get body
 			var data = JSON.parse(body);
-			//console.log(data);
+			console.log(data);
 
 			var response_to_client = {};
 			if(data.artObject.webImage === null){
